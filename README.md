@@ -1,2 +1,2 @@
 # MasterBio
-Biostatistic Mastrer degree from UEM
+Biostatistic Master's degree from UEM
