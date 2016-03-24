@@ -1,0 +1,68 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage[brazil,brazilian]{babel}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{graphics}
+\setlength{\parindent}{1.0cm}
+\usepackage[bottom=2.2cm,top=3cm,left=2.2cm,right=2cm]{geometry}
+\usepackage{animate}
+\linespread{1.5}
+
+
+\title{\textbf{Princípios de Bioestatística \\  Exercícios do capítulo 2}}
+\author{Felipe E. Barletta Mendes}
+
+
+\begin{document}
+\maketitle
+\indent
+
+<<setup, include = FALSE>>=
+tema <- knit_theme$get("acid")
+knit_theme$set(tema)
+opts_chunk$set(size = "footnotesize", 
+               cache = TRUE, 
+               tidy = FALSE,
+               comment = NA,
+               warning = FALSE,
+               message = FALSE,
+               fig.align = "center",  
+               out.width = "1\\linewidth",
+               fig.width = 7,
+               fig.height = 5,
+               dpi = 100,
+               fig.show = "hold",
+               fig.path = "Figuras/",
+               fig.pos = "H",
+               background = "#E6E6FA")
+#require(knitr)
+#require(latticeExtra)
+#require(MASS)
+#require(xtable)
+sapply(c('knitr','latticeExtra','MASS','xtable'), require, char=T)
+@
+
+<<echo=TRUE,results='hold'>>=
+treatment = rnorm(100,mean=10)
+control = rnorm(100,mean=12)
+d = (c(treatment,control))
+f = rep(c("Treatment","Control"),each=100)
+install.packages('effsize',repos='http://cran-r.c3sl.ufpr.br')
+require(effsize)
+## compute Cohen's d
+## treatment and control
+cohen.d(treatment,control)
+## data and factor
+cohen.d(d,f)
+## formula interface
+cohen.d(d ~ f)
+## compute Hedges' g
+cohen.d(d,f,hedges.correction=TRUE)
+
+cliff.delta(d,f)
+
+@ 
+\end{document}
